@@ -13,7 +13,7 @@ function activate(context) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.fold', function () {
+    let disposableIncrease = vscode.commands.registerCommand('extension.fold.up', function () {
         // The code you place here will be executed every time your command is executed
 
         // Get the current text editor
@@ -33,18 +33,39 @@ function activate(context) {
             content: "",
             language: currentEditorOptions.languageId
         }
-
+        
         var newDoc = vscode.workspace.openTextDocument(options).then(function(doc) {
             if (currentColumn != undefined && visibleTextEditors.length !== 3) {
                 vscode.window.showTextDocument(doc, visibleTextEditors.length + 1, true)
-            } else {
-                vscode.commands.executeCommand('workbench.action.closeActiveEditor');
             }
-            return doc;
         });
     });
 
-    context.subscriptions.push(disposable);
+    let disposableDecrease = vscode.commands.registerCommand('extension.fold.down', function () {
+        // The code you place here will be executed every time your command is executed
+
+        // Get the current text editor
+        let editor = vscode.window.activeTextEditor;
+        var visibleTextEditors = vscode.window.visibleTextEditors;
+        
+        if (!editor) {
+            // Display a message box to the user
+            vscode.window.showInformationMessage('There is currently no active editor!');
+            return;
+        }
+
+        var currentColumn = editor.viewColumn;
+ 
+        var currentEditorOptions = editor.document;
+        var options = {
+            content: "",
+            language: currentEditorOptions.languageId
+        }
+        vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+    });
+
+    context.subscriptions.push(disposableIncrease);
+    context.subscriptions.push(disposableDecrease);
 }
 
 exports.activate = activate;

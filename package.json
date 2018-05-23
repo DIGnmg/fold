@@ -11,15 +11,24 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.fold"
+        "onCommand:extension.fold",
+        "onCommand:extension.fold.up",
+        "onCommand:extension.fold.down"
     ],
     "main": "./extension",
     "contributes": {
-        "keybindings": [{
-            "command": "extension.fold",
+        "keybindings": [
+            {
+            "command": "extension.fold.up",
             "key": "ctrl+shift+up",
             "mac": "cmd+shift+up"
-        }],
+            },
+            {
+                "command": "extension.fold.down",
+                "key": "ctrl+shift+down",
+                "mac": "cmd+shift+down"
+            }
+        ],
         "commands": [
             {
                 "command": "extension.fold",
