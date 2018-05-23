@@ -13,24 +13,21 @@ function activate(context) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.sayHello', function () {
+    let disposable = vscode.commands.registerCommand('extension.fold', function () {
         // The code you place here will be executed every time your command is executed
-
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World!');
 
         // Get the current text editor
         let editor = vscode.window.activeTextEditor;
+        var visibleTextEditors = vscode.window.visibleTextEditors;
+        
         if (!editor) {
             // Display a message box to the user
             vscode.window.showInformationMessage('There is currently no active editor!');
             return;
         }
 
-        var current = editor.viewColumn;
-        var visibleTextEditors = vscode.window.visibleTextEditors;
-        var currentWindow = vscode.window;
-
+        var currentColumn = editor.viewColumn;
+ 
         var currentEditorOptions = editor.document;
         var options = {
             content: "",
@@ -38,8 +35,8 @@ function activate(context) {
         }
 
         var newDoc = vscode.workspace.openTextDocument(options).then(function(doc) {
-            if (current != undefined && visibleTextEditors.length !== 3) {
-                currentWindow.showTextDocument(doc, visibleTextEditors.length + 1, true)
+            if (currentColumn != undefined && visibleTextEditors.length !== 3) {
+                vscode.window.showTextDocument(doc, visibleTextEditors.length + 1, true)
             } else {
                 vscode.commands.executeCommand('workbench.action.closeActiveEditor');
             }

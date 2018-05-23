@@ -11,19 +11,19 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:extension.fold"
     ],
     "main": "./extension",
     "contributes": {
         "keybindings": [{
-            "command": "extension.sayHello",
+            "command": "extension.fold",
             "key": "ctrl+shift+up",
             "mac": "cmd+shift+up"
         }],
         "commands": [
             {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+                "command": "extension.fold",
+                "title": "Fold"
             }
         ]
     },
