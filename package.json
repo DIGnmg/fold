@@ -15,6 +15,11 @@
     ],
     "main": "./extension",
     "contributes": {
+        "keybindings": [{
+            "command": "extension.sayHello",
+            "key": "ctrl+shift+up",
+            "mac": "cmd+shift+up"
+        }],
         "commands": [
             {
                 "command": "extension.sayHello",

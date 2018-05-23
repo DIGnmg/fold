@@ -18,10 +18,38 @@ function activate(context) {
 
         // Display a message box to the user
         vscode.window.showInformationMessage('Hello World!');
+
+        // Get the current text editor
+        let editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            // Display a message box to the user
+            vscode.window.showInformationMessage('There is currently no active editor!');
+            return;
+        }
+
+        var current = editor.viewColumn;
+        var visibleTextEditors = vscode.window.visibleTextEditors;
+        var currentWindow = vscode.window;
+
+        var currentEditorOptions = editor.document;
+        var options = {
+            content: "",
+            language: currentEditorOptions.languageId
+        }
+
+        var newDoc = vscode.workspace.openTextDocument(options).then(function(doc) {
+            if (current != undefined && visibleTextEditors.length !== 3) {
+                currentWindow.showTextDocument(doc, visibleTextEditors.length + 1, true)
+            } else {
+                vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+            }
+            return doc;
+        });
     });
 
     context.subscriptions.push(disposable);
 }
+
 exports.activate = activate;
 
 // this method is called when your extension is deactivated
